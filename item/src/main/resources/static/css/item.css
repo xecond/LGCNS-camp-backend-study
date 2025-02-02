@@ -68,6 +68,11 @@ tr:nth-child(even) {
     background-color: #2B7A78;
 }
 
+.button-list {
+	display: flex;
+	
+}
+
 /* 입력 필드 */
 input[type="text"], input[type="number"], textarea {
     width: 100%;

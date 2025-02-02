@@ -2,28 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시판</title>
+    <title>아이템 도감</title>
     <link rel="stylesheet" th:href="@{/css/item.css}" />
 </head>
 <body>
     <div class="container">
-        <h2>게시판 등록</h2>
+        <h2>아이템 등록</h2>
         <form id="frm" method="post" action="/item/insertItem.do" enctype="multipart/form-data">
 	        <table class="item_detail">
 	            <tr>
-	               <td>아이템 이름</td>
+	               <th>아이템 이름</th>
 	               <td><input type="text" id="itemName" name="itemName" /></td>
 	            </tr>
 	            <tr>
-	               <td>등급</td>
+	               <th>등급</th>
 	               <td><input type="text" id="rarity" name="rarity" /></td>
 	            </tr>
 	            <tr>
-	               <td>종류</td>
+	               <th>종류</th>
 	               <td><input type="text" id="itemType" name="itemType" /></td>
 	            </tr>
 	            <tr>
-	               <td>능력치</td>
+	               <th>능력치</th>
 	               <td><input type="number" id="abilityValue" name="abilityValue" /></td>
 	            </tr>
 	            <tr>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시판</title>
+    <title>아이템 도감</title>
     <link rel="stylesheet" th:href="@{/css/item.css}" />
 </head>
 <body>
@@ -47,9 +47,11 @@
             	th:href="@{/item/downloadItemFile.do(fileId=${file.fileId}, itemId=${file.itemId})}"></a>
         </div>
         
-        <input type="button" id="list" class="btn" value="목록으로" />
-        <input type="button" id="update" class="btn" value="수정하기" />
-        <input type="button" id="delete" class="btn" value="삭제하기" />
+        <div class="button-list">
+        	<input type="button" id="list" class="btn" value="목록으로" />
+        	<input type="button" id="update" class="btn" value="수정하기" />
+        	<input type="button" id="delete" class="btn" value="삭제하기" />
+        </div>
         
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script>
