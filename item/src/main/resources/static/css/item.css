@@ -1,0 +1,170 @@
+/* 기본 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #DEF2F1;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    background: #FEFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 */
+h2 {
+    text-align: center;
+    color: #17252A;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #3AAFA9;
+    color: white;
+}
+
+/*
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+*/
+
+/* 버튼 스타일 */
+.btn {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FEFFFF;
+    background-color: #3AAFA9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #2B7A78;
+}
+
+/* 입력 필드 */
+input[type="text"], input[type="number"], textarea {
+    width: 100%;
+    max-width: 100%; /* 테이블 셀을 초과하지 않도록 제한 */
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 조정 */
+}
+
+/* 테이블 내 input이 넘치지 않도록 */
+.item_detail td {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.item_detail input, .item_detail textarea {
+    width: calc(100% - 16px); /* 패딩을 고려한 크기 조정 */
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* 파일 업로드 */
+input[type="file"] {
+    margin-top: 10px;
+}
+
+/* 아이템 목록 링크 */
+.itemName a {
+    text-decoration: none;
+    color: #3AAFA9;
+    font-weight: bold;
+}
+
+.itemName a:hover {
+    text-decoration: underline;
+}
+
+/* 파일 리스트 */
+.file_list {
+    margin-top: 15px;
+}
+
+.file_list a {
+    display: block;
+    text-decoration: none;
+    color: #3AAFA9;
+    margin-top: 5px;
+}
+
+.file_list a:hover {
+    text-decoration: underline;
+}
+
+
+/* 필터링 폼 */
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 요소 간 간격 */
+    background: #DEF2F1; /* 연한 배경 */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filter-form label {
+    font-weight: bold;
+    color: #17252A;
+}
+
+.filter-form select {
+    padding: 8px;
+    border: 1px solid #DEF2F1;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #FEFFFF;
+    cursor: pointer;
+}
+
+.filter-form button {
+    padding: 10px 15px;
+    background-color: #3AAFA9;
+    color: #FEFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.filter-form button:hover {
+    background-color: #2B7A78;
+}

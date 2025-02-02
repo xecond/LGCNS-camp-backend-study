@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/item.css}" />
+</head>
+<body>
+    <div class="container">
+        <h2>아이템 상세</h2>
+        <form id="frm" method="post">
+        	<input type="hidden" name="itemId" th:value="${item.itemId}" />
+            <table class="item_detail">
+                <colgroup>
+                    <col width="15%" />
+                    <col width="*" />
+                    <col width="15%" />
+                    <col width="35%" />                    
+                </colgroup>
+                <tr>
+                   <th>번호</th>
+                   <td th:text="${item.itemId}"></td>
+                   <th>작성일</th>
+                    <td th:text="${item.createdDt}"></td>
+                </tr>
+                <tr>
+                    <th>아이템 이름</th>
+                    <td><input type="text" id="itemName" name="itemName" th:value="${item.itemName}"/></td>
+                    <th>종류</th>
+                    <td><input type="text" id="itemType" name="itemType" th:value="${item.itemType}"/></td>
+                </tr>
+                <tr>
+                    <th>등급</th>
+                    <td><input type="text" id="rarity" name="rarity" th:value="${item.rarity}"/></td>
+                    <th>능력치</th>
+                    <td><input type="number" id="abilityValue" name="abilityValue" th:value="${item.abilityValue}"/></td>
+                </tr>
+                <tr>
+                   <td colspan="4"><textarea id="contents" name="contents" th:text="${item.contents}"></textarea></td>                
+                </tr>
+            </table>
+        </form>
+        
+        <div class="file_list">
+            <a th:each="file : ${item.fileInfoList}"
+            	th:text="|${file.originalFileName} (${file.fileSize}kb)|"
+            	th:href="@{/item/downloadItemFile.do(fileId=${file.fileId}, itemId=${file.itemId})}"></a>
+        </div>
+        
+        <input type="button" id="list" class="btn" value="목록으로" />
+        <input type="button" id="update" class="btn" value="수정하기" />
+        <input type="button" id="delete" class="btn" value="삭제하기" />
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+	        $(function() {
+	        	$("#list").on("click", function() {
+	        		location.href = "openItemList.do";
+	        	});
+	        	$("#update").on("click", function() {
+                    let frm = $("#frm")[0];
+                    frm.action = "updateItem.do";
+                    frm.submit();
+                });
+				$("#delete").on("click", function() {
+					let frm = $("#frm")[0];
+                    frm.action = "deleteItem.do";
+                    frm.submit();
+				});
+	        });
+        </script>
+        
+    </div>
+</body>
+</html>

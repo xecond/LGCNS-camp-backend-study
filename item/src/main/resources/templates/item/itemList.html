@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>아이템 도감</title>
+	<link rel="stylesheet" th:href="@{/css/item.css}" />
+</head>
+<body>
+    <div class="container">
+        <h2>아이템 목록</h2>
+        
+        <form action="/item/openItemList.do" method="get" class="filter-form">
+		    <label for="rarity">등급:</label>
+		    <select name="rarity" id="rarity">
+		        <option value="">전체</option>
+		        <option value="일반">일반</option>
+		        <option value="희귀">희귀</option>
+		        <option value="전설">전설</option>
+		        <option value="신화">신화</option>
+		    </select>
+		
+		    <label for="itemType">종류:</label>
+		    <select name="itemType" id="itemType">
+		        <option value="">전체</option>
+		        <option value="무기">무기</option>
+		        <option value="방어구">방어구</option>
+		        <option value="식품">식품</option>
+		    </select>
+		
+		    <button type="submit">필터 적용</button>
+		</form>
+                
+        <table class="item_list">
+            <colgroup>
+                <col width="15%" />
+                <col width="*" />
+                <col width="15%" />
+                <col width="20%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">등급</th>
+                    <th scope="col">종류</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.size(list)} > 0" th:each="list : ${list}">
+                    <td th:text="${list.itemId}"></td>
+                    <td class="itemName">
+                        <a href="/item/openItemDetail.do?itemId=" 
+                            th:attrappend="href=${list.itemId}" th:text="${list.itemName}"></a>
+                    </td>
+                    <td th:text="${list.rarity}"></td>
+                    <td th:text="${list.itemType}"></td>
+                </tr>
+                <tr th:unless="${#lists.size(list)} > 0">
+                    <td colspan="4">조회된 결과가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/item/openItemWrite.do" class="btn">새 아이템 등록</a>
+    </div>
+    
+
+</body>
+</html>

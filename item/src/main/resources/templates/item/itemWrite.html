@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/item.css}" />
+</head>
+<body>
+    <div class="container">
+        <h2>게시판 등록</h2>
+        <form id="frm" method="post" action="/item/insertItem.do" enctype="multipart/form-data">
+	        <table class="item_detail">
+	            <tr>
+	               <td>아이템 이름</td>
+	               <td><input type="text" id="itemName" name="itemName" /></td>
+	            </tr>
+	            <tr>
+	               <td>등급</td>
+	               <td><input type="text" id="rarity" name="rarity" /></td>
+	            </tr>
+	            <tr>
+	               <td>종류</td>
+	               <td><input type="text" id="itemType" name="itemType" /></td>
+	            </tr>
+	            <tr>
+	               <td>능력치</td>
+	               <td><input type="number" id="abilityValue" name="abilityValue" /></td>
+	            </tr>
+	            <tr>
+	               <td colspan="2"><textarea id="contents" name="contents"></textarea></td>	               
+	            </tr>
+	        </table>
+	        <input type="file" id="files" name="files" multiple="multiple" />
+	        <input type="submit" id="submit" value="저장" class="btn" />
+	    </form>
+    </div>
+    
+    <script>
+		function filterItems() {
+		    let rarity = document.getElementById("rarityFilter").value;
+		    let itemType = document.getElementById("itemTypeFilter").value;
+		    
+		    let url = "/item/openItemList.do?rarity=" + rarity + "&itemType=" + itemType;
+		    window.location.href = url; // 서버에 새로운 필터 요청
+		}
+		
+		document.addEventListener("DOMContentLoaded", function () {
+		    let rarityFilter = document.getElementById("rarityFilter");
+		    let itemTypeFilter = document.getElementById("itemTypeFilter");
+		    let rows = document.querySelectorAll(".item_list tbody tr");
+		
+		    rarityFilter.addEventListener("change", applyClientFilter);
+		    itemTypeFilter.addEventListener("change", applyClientFilter);
+		
+		    function applyClientFilter() {
+		        let selectedRarity = rarityFilter.value;
+		        let selectedType = itemTypeFilter.value;
+		
+		        rows.forEach(row => {
+		            let rarity = row.children[2].textContent.trim();
+		            let itemType = row.children[3].textContent.trim();
+		
+		            let rarityMatch = selectedRarity === "" || rarity === selectedRarity;
+		            let typeMatch = selectedType === "" || itemType === selectedType;
+		
+		            row.style.display = (rarityMatch && typeMatch) ? "" : "none";
+		        });
+		    }
+		});
+	</script>
+
+</body>
+</html>

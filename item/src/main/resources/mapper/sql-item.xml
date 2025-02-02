@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="item.mapper.ItemMapper">
+
+    <select id="selectItemList" resultType="item.dto.ItemDto">
+        select item_id, item_name, rarity, item_type
+          from Items
+          <where>
+	          <if test="rarity != null and rarity != ''">
+	              AND rarity = #{rarity}
+	          </if>
+	          <if test="itemType != null and itemType != ''">
+	              AND item_type = #{itemType}
+	          </if>
+	      </where>
+         order by item_id desc
+    </select>
+    
+    <insert id="insertItem" parameterType="item.dto.ItemDto"
+    	useGeneratedKeys="true" keyProperty="itemId">
+        insert into Items (item_name, rarity, item_type, ability_value, contents, created_dt)
+        values (#{itemName}, #{rarity}, #{itemType}, #{abilityValue}, #{contents}, now())
+    </insert>
+    
+    <insert id="insertItemFileList" parameterType="item.dto.ItemDto">
+        insert into ItemFiles 
+            (item_id, original_file_name, stored_file_path, file_size, created_dt)
+        values 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.itemId}, #{item.originalFileName}, #{item.storedFilePath}, #{item.fileSize}, now())
+        </foreach>
+    </insert>
+    
+    <select id="selectItemDetail" parameterType="int" resultType="item.dto.ItemDto">
+        select item_id, item_name, rarity, item_type, ability_value, contents, date_format(created_dt, '%Y.%m.%d %H:%i:%s') as created_dt
+          from Items
+         where item_id = #{itemId}
+    </select>
+    
+    <update id="updateItem" parameterType="item.dto.ItemDto">
+        update Items
+           set item_name = #{itemName} 
+           	 , rarity = #{rarity}
+           	 , item_type = #{itemType}
+           	 , ability_value = #{abilityValue}
+             , contents = #{contents}
+             , updated_dt = now()
+         where item_id = #{itemId}  
+    </update>
+    
+    <delete id="deleteItem" parameterType="item.dto.ItemDto">
+        delete
+    	from Items
+    	where item_id = #{itemId}
+    </delete>
+    
+    <select id="selectItemFileList" parameterType="int" resultType="item.dto.ItemFileDto">
+        select file_id, item_id, original_file_name, format(round(file_size/1024), 0) as file_size
+          from ItemFiles
+         where item_id = #{itemId}
+    </select>
+    
+    <select id="selectItemFileInfo" parameterType="map" resultType="item.dto.ItemFileDto">
+        select original_file_name, stored_file_path, file_size
+          from ItemFiles
+         where file_id = #{fileId} and item_id = #{itemId}
+    </select>
+
+    
+</mapper>
