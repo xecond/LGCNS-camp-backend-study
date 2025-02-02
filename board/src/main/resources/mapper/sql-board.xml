@@ -20,6 +20,16 @@
         values (#{title}, #{contents}, now(), #{createdId})
     </insert>
     
+    <insert id="insertBoardFileList" parameterType="board.dto.BoardFileDto">
+        insert into t_file 
+            (board_idx, original_file_name, stored_file_path, file_size, created_id, created_dt)
+        values 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.boardIdx}, #{item.originalFileName}, #{item.storedFilePath}, #{item.fileSize}, 'admin', now())
+        </foreach>
+    </insert>
+    
+    
     <select id="selectBoardDetail" parameterType="int" resultType="board.dto.BoardDto">
         select board_idx, title, hit_cnt, date_format(created_dt, '%Y.%m.%d %H:%i:%s') as created_dt, 
                contents, created_id
