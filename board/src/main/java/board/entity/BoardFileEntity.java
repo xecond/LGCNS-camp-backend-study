@@ -2,6 +2,7 @@ package board.entity;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -35,7 +36,7 @@ public class BoardFileEntity {
 	@Column(nullable = false)
 	private long fileSize;
 	
-	@JsonManagedReference
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_idx")
 	private BoardEntity board;

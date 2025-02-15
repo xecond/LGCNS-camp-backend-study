@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -61,8 +62,13 @@ public class JpaBoardServiceImpl implements JpaBoardService {
 
 	@Override
 	public void insertBoard(BoardEntity boardEntity, MultipartHttpServletRequest request) throws Exception {
-		boardEntity.setCreatedId("admin");
-		List<BoardFileEntity> list = fileUtils.parseFileInfo2(boardEntity.getBoardIdx(), request);
+		//boardEntity.setCreatedId("admin");
+		
+		// 글쓰기 처리 시 로그인한 사용자의 아이디를 글쓴이 아이디로 설정
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		boardEntity.setCreatedId(username);
+		
+		List<BoardFileEntity> list = fileUtils.parseFileInfo(boardEntity.getBoardIdx(), request);
 		if (!CollectionUtils.isEmpty(list)) {
 			boardEntity.setFileInfoList(list);
 		}
